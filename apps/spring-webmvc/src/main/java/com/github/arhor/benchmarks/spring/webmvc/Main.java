@@ -27,21 +27,13 @@ public class Main {
     }
 
     @Bean
-    public ApplicationRunner applicationRunner(final UserRepository repository) {
-        return args -> {
-            repository.deleteAll();
-            repository.save(new UserEntity("username", "password"));
-        };
+    public ApplicationRunner applicationRunner(final UserService service) {
+        return (args) -> service.initialize();
     }
 
     @Bean
     public Supplier<LocalDateTime> currentDateTimeSupplier() {
-        return () -> {
-            var systemUTC = Clock.systemUTC();
-            var timestamp = LocalDateTime.now(systemUTC);
-
-            return timestamp.truncatedTo(ChronoUnit.MILLIS);
-        };
+        return () -> LocalDateTime.now(Clock.systemUTC()).truncatedTo(ChronoUnit.MILLIS);
     }
 
     @Bean
@@ -51,6 +43,6 @@ public class Main {
 
     @Bean
     public FlywayConfigurationCustomizer flywayConfigurationCustomizer() {
-        return it -> it.loggers("slf4j");
+        return (it) -> it.loggers("slf4j");
     }
 }

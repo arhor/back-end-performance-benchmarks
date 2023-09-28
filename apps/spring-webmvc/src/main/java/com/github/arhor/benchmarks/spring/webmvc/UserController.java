@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<UserDto> getUserById() {
+    public List<UserDto.Result> getUserById() {
         return service.findAll();
     }
 }
