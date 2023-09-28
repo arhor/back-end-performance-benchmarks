@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "users"
 CREATE OR REPLACE FUNCTION FIND_ALL_USERS() RETURNS SETOF "users" AS
 $$
 BEGIN
-    PERFORM PG_SLEEP(1.0);
+    PERFORM PG_SLEEP(0.5);
     RETURN QUERY SELECT u.id
                       , u.username
                       , u.password

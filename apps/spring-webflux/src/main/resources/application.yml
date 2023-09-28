@@ -3,25 +3,27 @@ server:
 
 spring:
   application:
-    name: spring-webmvc
+    name: spring-webflux
   config:
     import:
       - optional:file:${project.rootDir}/../.env[.properties]
   threads:
     virtual:
-      enabled: true
+      enabled: false
   aop:
     proxy-target-class: false
   sql:
     init:
       platform: postgres
+  r2dbc:
+    url: \${R2DBC_DATABASE_URL}
+    username: \${R2DBC_DATABASE_USERNAME}
+    password: \${R2DBC_DATABASE_PASSWORD}
   datasource:
     driverClassName: org.postgresql.Driver
     url: \${JDBC_DATABASE_URL}
     username: \${JDBC_DATABASE_USERNAME}
     password: \${JDBC_DATABASE_PASSWORD}
-    hikari:
-      auto-commit: false
   flyway:
     url: \${spring.datasource.url}
     user: \${spring.datasource.username}
